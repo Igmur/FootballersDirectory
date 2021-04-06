@@ -1,0 +1,49 @@
+﻿@model FootballersDirectory.Models.FootballerEntity
+
+<div class="back-to-list">
+    <a asp-action="Index" asp-controller="List">← Назад</a>
+</div>
+<div>
+    @{
+        ViewBag.Title = "Добавление футболиста";
+    }
+    <form asp-action="CreateFootballer" asp-controller="Create">
+        <div class="form-group">
+            <input type="text" asp-for="Name" class="form-control" placeholder="Имя" />
+        </div>
+        <div class="form-group">
+            <input type="text" asp-for="LastName" class="form-control" placeholder="Фамилия" />
+        </div>
+        <div class="form-group">
+            <input type="text" asp-for="Gender.GenderName" list="Genders" class="form-control" placeholder="Пол" />
+            <datalist id="Genders">
+                @foreach (var gender in ViewBag.Genders)
+                {
+                    <option value="@gender" />
+                }
+            </datalist>
+        </div>
+        <div class="form-group">
+            <input type="date" asp-for="BirthDate" asp-format="d" class="form-control" max="9999-12-31" placeholder="Дата рождения" />
+        </div>
+        <div class="form-group">
+            <input type="text" asp-for="Command.CommandName" list="Commands" class="form-control" placeholder="Название комманды" />
+            <datalist id="Commands">
+                @foreach (var command in ViewBag.Commands)
+                {
+                    <option value="@command" />
+                }
+            </datalist>
+        </div>
+        <div class="form-group">
+            <select asp-for="Country" class="form-control" placeholder="Страна">
+                <option>Россия</option>
+                <option>США</option>
+                <option>Италия</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-outline-success" value="Добавить" />
+        </div>
+    </form>
+</div>

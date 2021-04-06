@@ -1,0 +1,42 @@
+﻿@model IEnumerable<FootballersDirectory.Models.FootballerEntity>
+<div class="full-list">
+    <div id="edit-form-div">
+        @await Html.PartialAsync(
+        "_Edit.cshtml",
+        new FootballerEntity { })
+    </div>
+    <div class="footballers-table">
+        <table class="table table-bordered table-responsive-md table-striped">
+            <tr>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Пол</th>
+                <th>Дата рождения</th>
+                <th>Название комманды</th>
+                <th>Страна</th>
+                <th colspan="2">Редактирование</th>
+            </tr>
+            @foreach (var footballer in Model)
+            {
+                <tr id="footballer-info">
+                    <td id="footballer-name">@footballer.Name</td>
+                    <td id="footballer-lastname">@footballer.LastName</td>
+                    <td id="footballer-gender">@footballer.Gender.GenderName</td>
+                    <td id="footballer-birthdate">@footballer.BirthDate.ToString("d")</td>
+                    <td id="footballer-command">@footballer.Command.CommandName</td>
+                    <td id="footballer-country">@footballer.Country</td>
+                    <td>
+                        <button class="btn btn-outline-info" onclick="editFootballer(@footballer.Id, '@Url.Action("EditFootballer", "List")')">Изменить</button>
+                    </td>
+                    <td>
+                        <a type="button" class="btn btn-outline-danger" asp-action="DeleteFootballer" asp-controller="List" asp-route-id="@footballer.Id">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </table>
+        <div id="add-footballer">
+            <a asp-action="Index" asp-controller="Create">Добавить футболиста</a>
+        </div>
+    </div>
+</div>
+
